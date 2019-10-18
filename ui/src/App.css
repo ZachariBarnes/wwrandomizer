@@ -1,0 +1,84 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.header {
+  vertical-align: top;
+  font-size: 20px;
+  font-weight:bold;
+}
+.topic {
+  vertical-align: top;
+  font-size: 15px;
+  font-weight:bold;
+}
+.body {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: top;
+  color: white;
+}
+.description {
+  padding-left: 150px;
+  padding-right: 150px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.leftform {
+  padding-left: 150px;
+  padding-right: 150px;
+  font-size: 15px;
+  align-items: left;
+  text-align: left;
+}
+.centerform {
+  padding-left: 150px;
+  padding-right: 150px;
+  font-size: 15px;
+  align-items: right;
+  text-align: right;
+}
+
+.myTextAreas {
+  margin-left: 10px;
+  margin-right: 100px;
+  vertical-align: top;
+  width: 200px;
+  max-lines: 100;
+  word-break: break-word;
+}
+
+.rightform {
+  padding-left: 150px;
+  padding-right: 150px;
+  font-size: 15px;
+  align-items: right;
+  text-align: right;
+}
+
+.App-link {
+  color: #09d3ac;
+}
