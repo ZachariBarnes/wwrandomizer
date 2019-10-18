@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+import { Welcome } from './home';
 
 // Creates express app
 const app = express();
@@ -12,7 +13,9 @@ app.use(
     })
 );
 app.use(bodyParser.json());
-
+app.get('/', async(req, res) =>{
+    res.send(Welcome);
+})
 app.post('/', async (req, res) => {
     const { players, roles, calcBgs = false, bgRatio = 0.2, } = req.body;
     if (calcBgs) {
