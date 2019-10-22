@@ -1,5 +1,6 @@
 import React from 'react';
-import InputForms from './InputForms'
+import InputForms from './components/InputForms'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends React.Component {

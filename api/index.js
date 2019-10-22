@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+import 'bootstrap/dist/css/bootstrap.min.css';
 // const ui = require('../ui/build/index.html');
 var cors = require("cors");
 
