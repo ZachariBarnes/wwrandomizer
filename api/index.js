@@ -2,8 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const getRolesTable = require('./GlobalFunctions');
-
-// const ui = require('../ui/build/index.html');
+const request = require('request');
 var cors = require("cors");
 
 
@@ -29,19 +28,24 @@ app.use(
         extended: true
     })
 );
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '../ui/build'));
 app.use(cors());
 app.use(bodyParser.json());
 app.get('/*', async (req, res) => {
-    if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
+    if (__dirname.indexOf('localhost') > 0) {
+        res.send(await request.get('https://ww-randomizer.s3.amazonaws.com/build/index.html'))
+    }
+    else {
+        if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
 
-        if (req.url.includes("wwrandomizer")) {
-            req.url = req.url.replace("/wwrandomizer", "");
+            if (req.url.includes("wwrandomizer")) {
+                req.url = req.url.replace("/wwrandomizer", "");
+            }
+
+            res.sendFile(path.resolve(`../ui/build/${req.url}`));
+        } else {
+            res.sendFile(path.resolve('..ui/build/index.html'));
         }
-
-        res.sendFile(path.resolve(`../ui/build/${req.url}`));
-    } else {
-        res.sendFile(path.resolve('../ui/build/index.html'));
     }
 })
 app.post('/', async (req, res) => {
@@ -51,9 +55,9 @@ app.post('/', async (req, res) => {
 
 
 // Starts Local server -- COMMENT OUT FOR DEPLOYMENT
-// app.listen(process.env.PORT || PORT, () => {
-//     console.log(`Bot is listening on port ${PORT}`);
-// });
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Bot is listening on port ${PORT}`);
+});
 
 //Required for lambda Deployment, Comment out for Local Development
-module.exports = app;
+// module.exports = app;
