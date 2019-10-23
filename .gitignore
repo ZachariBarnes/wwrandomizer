@@ -28,3 +28,4 @@
 ./api/node_modules
 ./api/wwrandomizer-1.0.0.zip
 ./ui/node_modules
+./api/bin
