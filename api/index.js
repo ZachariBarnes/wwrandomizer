@@ -28,7 +28,7 @@ app.use(
         extended: true
     })
 );
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '../ui/build'));
 app.use(cors());
 app.use(bodyParser.json());
 app.get('/*', async (req, res) => {
@@ -42,9 +42,9 @@ app.get('/*', async (req, res) => {
                 req.url = req.url.replace("/wwrandomizer", "");
             }
 
-            res.sendFile(path.resolve(`./build/${req.url}`));
+            res.sendFile(path.resolve(`../ui/build/${req.url}`));
         } else {
-            res.sendFile(path.resolve('./build/index.html'));
+            res.sendFile(path.resolve('..ui/build/index.html'));
         }
     }
 })
@@ -55,9 +55,9 @@ app.post('/', async (req, res) => {
 
 
 // Starts Local server -- COMMENT OUT FOR DEPLOYMENT
-// app.listen(process.env.PORT || PORT, () => {
-//     console.log(`Bot is listening on port ${PORT}`);
-// });
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Bot is listening on port ${PORT}`);
+});
 
 //Required for lambda Deployment, Comment out for Local Development
 // module.exports = app;
