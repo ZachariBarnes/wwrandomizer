@@ -24,3 +24,7 @@
 ./ui/npm-debug.log*
 ./ui/yarn-debug.log*
 ./ui/yarn-error.log*
+
+./api/node_modules
+./api/wwrandomizer-1.0.0.zip
+./ui/node_modules

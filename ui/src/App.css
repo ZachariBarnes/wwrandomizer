@@ -48,23 +48,28 @@
   font-size: 15px;
   font-weight:bold;
   text-align: center;
+  margin-bottom: 10px;
 }
 .noPadding{
   margin: 1px;
   padding: 1px;
+}
+
+.inlineForm{
+  justify-content: center;
 }
 .smallTextBox {
   margin-left:10px;
   margin-right:5px;
   min-height: 10px;
   min-width: 10px;
-  max-width: 25px;
+  max-width: 45px;
   margin-bottom: 10px;
   background: #282c34;
   background-color: #282c34;
-  color: #282c34;
+  color: #f8f9fa;
   border-color: #f8f9fa;
-  font-size: 10px;
+  font-size: 12px;
 }
 .smallerText {
   font-size: 12px;
@@ -84,6 +89,7 @@
   padding-right: 150px;
   font-size: 15px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .leftform {
@@ -92,6 +98,8 @@
   font-size: 15px;
 
 }
+
+
 .centerform {
   padding-left: 150px;
   padding-right: 150px;
