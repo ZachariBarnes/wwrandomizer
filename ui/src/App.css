@@ -1,12 +1,17 @@
 .App {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 75vmax;
   display: flex;
   flex-direction: column;
   vertical-align: top;
   font-size: calc(10px + 2vmin);
   color: white;
   text-align: center;
+}
+
+body,html {
+  height: 100%;
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -28,8 +33,6 @@
   font-weight:bold;
 }
 
-.slider{
-}
 .sliderLabel {
   text-align: center;
   font-size: 15px;
@@ -55,6 +58,18 @@
   padding: 1px;
 }
 
+.sortable{
+    cursor: pointer;
+}
+
+.error{
+font-size: 17px;
+margin: 10px;
+margin-left: 60px;
+margin-right: 60px;
+color:#dc3545;
+}
+
 .inlineForm{
   justify-content: center;
 }
@@ -63,7 +78,7 @@
   margin-right:5px;
   min-height: 10px;
   min-width: 10px;
-  max-width: 45px;
+  max-width: 50px;
   margin-bottom: 10px;
   background: #282c34;
   background-color: #282c34;
