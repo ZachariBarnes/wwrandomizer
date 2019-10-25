@@ -43,19 +43,23 @@ class InputForms extends React.Component {
         this.sortByPlayer = this.sortByPlayer.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.sortAssignmentsByProvidedRole = this.sortAssignmentsByProvidedRole.bind(this);
+        this.handleCalcBgChange = this.handleCalcBgChange.bind(this);
+        this.handleBGRatioChange = this.handleBGRatioChange.bind(this);
     }
 
     handlePlayersChange(event) {
         const laurens = ['lrn', 'lurne', 'laurne', 'lauren', 'larne', 'lorne', 'lorn', 'lurn'];
-        const { value } = event.target
+        const { value } = event.target;
+        const { roles, bgRatio, calcBgs } = this.state;
         let players = value.indexOf(',') > 0 ? value.split(',') : value.split('\n');
         players = players.map(e => {
             if (laurens.indexOf(e.trim().toLowerCase()) > 0)
                 return "Laurne Free-Wifi-at-the Hilton";
             return e.trim()
         })
+        const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
         const error = this.state.error
-            && this.state.players.length <= this.state.roles.length
+            && players.length < numRoles
             ? UNSUPPORTED_PLAYER_COUNT
             : false;
         this.setState({
@@ -67,12 +71,14 @@ class InputForms extends React.Component {
 
     handleRolesChange(event) {
         const { value } = event.target
+        const { players, bgRatio, calcBgs } = this.state;
         let roles = value.indexOf(',') > 0 ? value.split(',') : value.split('\n');
         roles = roles.map(e => {
             return e.trim()
         })
+        const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
         const error = this.state.error
-            && this.state.players.length <= this.state.roles.length
+            && players.length < numRoles
             ? UNSUPPORTED_PLAYER_COUNT
             : false;
         this.setState({
@@ -107,6 +113,38 @@ class InputForms extends React.Component {
         });
     }
 
+    handleBGRatioChange(e) {
+        const bgRatio = e.target.value / 100
+        const { players, roles, calcBgs } = this.state;
+        const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
+        console.log(`bgRatioChange -calcBgs:${calcBgs}  Roles: ${numRoles}, Players ${players.length}`)
+        const error = this.state.error
+            && players.length < numRoles
+            ? UNSUPPORTED_PLAYER_COUNT
+            : false;
+        this.setState({
+            ...this.state,
+            bgRatio,
+            error
+        })
+    }
+
+    handleCalcBgChange() {
+        const calcBgs = !this.state.calcBgs;
+        const { players, roles, bgRatio } = this.state;
+        const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
+        console.log(`calcBgChange -calcBgs:${calcBgs}  Roles: ${numRoles}, Players ${players.length}`)
+        const error = this.state.error
+            && players.length < numRoles
+            ? UNSUPPORTED_PLAYER_COUNT
+            : false;
+        this.setState({
+            ...this.state,
+            calcBgs,
+            error
+        });
+    }
+
     sortByPlayer() {
         let { assignments, sortOrder } = this.state;
         const { col, order } = sortOrder;
@@ -133,22 +171,33 @@ class InputForms extends React.Component {
 
     handleSubmit() {
         const { players, roles, calcBgs, bgRatio } = this.state;
-        if (players.length && roles.length && roles.length <= players.length) {
-            let assignments;
-            const postBody = {
-                players,
-                roles,
-                calcBgs,
-                bgRatio
+        if (players.length && roles.length) {
+            const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
+            console.log(`submit -calcBgs:${calcBgs}  Roles: ${numRoles}, Players ${players.length}`)
+
+            if (numRoles <= players.length) {
+                let assignments;
+                const postBody = {
+                    players,
+                    roles,
+                    calcBgs,
+                    bgRatio
+                }
+                assignments = getRolesTable(cloneDeep(postBody));
+                assignments = this.sortAssignmentsByProvidedRole(assignments)
+                this.setState({
+                    ...this.state,
+                    postBody,
+                    rolesGenerated: true,
+                    assignments
+                });
             }
-            assignments = getRolesTable(cloneDeep(postBody));
-            assignments = this.sortAssignmentsByProvidedRole(assignments)
-            this.setState({
-                ...this.state,
-                postBody,
-                rolesGenerated: true,
-                assignments
-            });
+            else {
+                this.setState({
+                    error: UNSUPPORTED_PLAYER_COUNT
+                });
+                console.log(`ERROR: ${UNSUPPORTED_PLAYER_COUNT}`);
+            }
         }
         else {
             this.setState({
@@ -241,12 +290,7 @@ class InputForms extends React.Component {
                                 label={`Generate BG Roles`}
                                 className="sliderLabel"
                                 checked={this.state.calcBgs}
-                                onChange={() => {
-                                    this.setState({
-                                        ...this.state,
-                                        calcBgs: !this.state.calcBgs
-                                    })
-                                }}
+                                onChange={this.handleCalcBgChange}
                             />
                         </Col>
 
@@ -257,10 +301,7 @@ class InputForms extends React.Component {
                     <Col size="sm">
                         <Form inline="true" className="inlineForm">
 
-                            <input className="slider" type="range" min="0" max="100" value={this.state.bgRatio * 100} onChange={e =>
-                                this.setState({
-                                    ...this.state, bgRatio: e.target.value / 100
-                                })}
+                            <input className="slider" type="range" min="0" max="100" value={this.state.bgRatio * 100} onChange={e => { this.handleBGRatioChange(e) }}
                             />
 
                             <Form.Group controlId="exampleForm.ControlTextarea1" inline="true">

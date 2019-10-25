@@ -1,5 +1,5 @@
 
-const getRolesTable = ((req) => {
+function getRolesTable(req) {
     const { players, roles, calcBgs = false, bgRatio = 0.2, html = false } = req;
     if (calcBgs) {
         const numBGs = Math.ceil(players.length * bgRatio);
@@ -34,7 +34,7 @@ const getRolesTable = ((req) => {
         return assignments
     }
 
-});
+};
 
 const tableMaker = (o => {
     var keys = Object.keys(o[0]),
