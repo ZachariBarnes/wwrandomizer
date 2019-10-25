@@ -37,3 +37,4 @@
 ui/node_modules
 ui/.DS_Store
 api/node_modules
+ui/build
