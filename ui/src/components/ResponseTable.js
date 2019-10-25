@@ -1,35 +1,47 @@
-import getRolesTable from '../Functions/GlobalFunctions';
 import React from 'react';
 import { Table, Container, Row, Col } from 'react-bootstrap';
 import '../App.css';
-var cloneDeep = require('lodash.clonedeep');
 
 export class ResponseTable extends React.Component {
-
-    componentDidUpdate() {
-        if (this.props.body) {
-            window.scrollTo(0, document.body.scrollHeight)
+    constructor(props) {
+        super(props);
+        this.state = {
+            assignments: []
         }
+        this.createTable = this.createTable.bind(this);
     }
 
-    render() {
-        const { body } = this.props;
-        const assignments = body ? getRolesTable(cloneDeep(body)) : null;
-        const table = assignments ? (assignments.map((e, index) =>
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.assignments == this.props.assignments) {
+    //         const { assignments } = this.props;
+    //         if (assignments.length) {
+    //             window.scrollTo(0, document.body.scrollHeight)
+    //         }
+    //     }
+    // }
+
+    createTable(assignments) {
+        const generateTable = assignments && assignments.length
+        return generateTable ? (assignments.map((e, index) =>
             (<tr key={index}>
                 <td>{e.Player}</td>
                 <td>{e.Role}</td>
             </tr>)
         )) : (<div></div>)
-        const reactResults = body
+    }
+
+    render() {
+        const { assignments } = this.props;
+        const table = this.createTable(assignments)
+        const reactResults = assignments.length
             ? (<Container>
                 <Row>
                     <Col>
                         <Table striped bordered hover variant="dark" size="sm" responsive="true" width="50%">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>Game Role</th>
+                                    <th className="sortable" onClick={this.props.sortByPlayer}>Player</th>
+                                    <th className="sortable" onClick={this.props.sortByRole}>Game Role</th>
                                 </tr>
                             </thead>
                             <tbody>
