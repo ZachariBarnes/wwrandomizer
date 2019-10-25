@@ -1,10 +1,16 @@
 # Werewolf Randomizer
+## An app that allows Werewolf/Mafia moderators to easily randomize role assignment.
+
 This Repo has both a UI and API project. The API project works locally but is not currently deployed in a live environment. 
-The User Interfact can be found on AWS S3<a href="https://ww-randomizer.s3.amazonaws.com/build/index.html?">here.</a>
+
+The User Interface is live and can be found on AWS S3 <a href="https://ww-randomizer.s3.amazonaws.com/build/index.html?">here.</a>
+
 This was developed in conjunction with the Modbot system we're building to moderate these games automatically. You can follow that project <a href="https://github.com/laurenmarieh/werewolfmod">here. </a>
-The UI Allows users to Copy-paste lists of players and Roles and have them randomly assigned, It also have the ability to generate a given % of Bad Guy roles and will fill extra role slots with Plane Jane Villager(PJV) roles automatically.
+
+The UI Allows users to Copy-paste lists of Players and Roles and have them randomly assigned, It also has the ability to generate a given % of Bad Guy(BG) roles and will fill extra role slots with Plane Jane Villager(PJV) roles automatically.
+
 The API has the same functionality and will return the data in JSON form or in an HTML table based on the `html` property in the body of the request. 
-A API that allows Werewolf/Mafia moderators to randomize role assignment.
+
 
 1. run `npm install` 
 2. Start the server with `npm start`
@@ -46,8 +52,9 @@ A API that allows Werewolf/Mafia moderators to randomize role assignment.
     ```
 5. You can include  the properties ``"calcBgs": true`` and ```"bgRatio": 0.2 ```in order to calcuate how many BGs there should be based on the number of players and the ratio (percentage) that should be Bad guys.
 
-This application will automatically generate Roles for all players, creating PJV and BG roles as needed. It can return it to you in a table or JSON format. Examples below:
+This application will automatically generate Roles for all players, creating PJV and BG roles as needed. It can return it to you in a table or ****JSON**** format. Examples below:
 JSON:
+```
 [
     {
         "Player": "Matt Hecky,",
@@ -150,6 +157,7 @@ JSON:
         "Role": "PJV"
     }
 ]
+```
 
 HMTL:
 <table>
