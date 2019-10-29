@@ -2,7 +2,7 @@
 function getRolesTable(req) {
     const { players, roles, calcBgs = false, bgRatio = 0.2, html = false } = req;
     if (calcBgs) {
-        const numBGs = Math.ceil(players.length * bgRatio);
+        const numBGs = Math.floor(players.length * bgRatio);
         console.log(`Caluclating number of BGs. \n Creating ...${numBGs} BGs`);
         for (var i = 0; i < numBGs; i++) {
             roles.push("BG");
