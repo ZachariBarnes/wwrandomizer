@@ -55,8 +55,11 @@ class InputForms extends React.Component {
         players = players.map(e => {
             if (laurens.indexOf(e.trim().toLowerCase()) > 0)
                 return "Laurne Free-Wifi-at-the Hilton";
-            return e.trim()
-        })
+            return e.trim();
+        });
+        players = players.filter(function (el) {
+            return el !== '' && el !== '\n' && el !== null;
+        });
         const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
         const error = this.state.error
             && players.length < numRoles
@@ -76,6 +79,9 @@ class InputForms extends React.Component {
         roles = roles.map(e => {
             return e.trim()
         })
+        roles = roles.filter(function (el) {
+            return el !== '' && el !== '\n' && el !== null;
+        });
         const numRoles = roles.length + ((calcBgs) ? (Math.ceil(players.length * bgRatio)) : 0);
         const error = this.state.error
             && players.length < numRoles
