@@ -1,6 +1,7 @@
 .App {
   background-color: #282c34;
   min-height: 75vmax;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   vertical-align: top;
@@ -16,6 +17,9 @@ body,html {
 
 .App-logo {
   height: 40vmin;
+}
+.footer {
+  font-size:11px;
 }
 
 .App-header {
@@ -86,6 +90,9 @@ color:#dc3545;
   border-color: #f8f9fa;
   font-size: 12px;
 }
+.mytable{
+    font-size: 19px;
+}
 .smallerText {
   font-size: 12px;
   font-weight: bold;
@@ -100,8 +107,8 @@ color:#dc3545;
   color: white;
 }
 .description {
-  padding-left: 150px;
-  padding-right: 150px;
+  padding-left: 5%;
+  padding-right: 5%;
   font-size: 15px;
   text-align: center;
   margin-bottom: 20px;
@@ -114,10 +121,14 @@ color:#dc3545;
 
 }
 
+.myform{
+  padding-left: 15%;
+  padding-right: 15%;
+}
 
 .centerform {
-  padding-left: 150px;
-  padding-right: 150px;
+  padding-left: 5%;
+  padding-right: 5%;
   font-size: 15px;
   align-items: right;
   text-align: right;

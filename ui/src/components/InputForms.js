@@ -246,14 +246,14 @@ class InputForms extends React.Component {
         // const DEFAULT_ROLES = ['Doctor', 'Seer', 'Mason', 'Mason', 'Hunter'];
         // console.log(roles, DEFAULT_ROLES, roles == DEFAULT_ROLES)
         return (
-            <div className="widthController">
+            <div>
                 <Helmet>
                     <title>{TITLE}</title>
                 </Helmet>
                 <Form>
                     {!!this.state.error && <Row><Col><div className="error">{UNSUPPORTED_PLAYER_COUNT}</div></Col></Row>}
-                    <Row>
-                        <Col></Col>
+                    <Row className="myform">
+
                         <Col>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
                                 <Form.Label>Players</Form.Label>
@@ -286,7 +286,6 @@ class InputForms extends React.Component {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col></Col>
                     </Row>
                     <Row>
                         <Col>
