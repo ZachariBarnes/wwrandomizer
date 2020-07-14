@@ -12,6 +12,7 @@ export class ResponseTable extends React.Component {
         this.createTable = this.createTable.bind(this);
         this.generatePoll = this.generatePoll.bind(this);
         this.getRandomPollMsg = this.getRandomPollMsg.bind(this);
+        this.getSortByPlayer = this.getSortByPlayer.bind(this);
     }
 
     // componentDidUpdate(prevProps) {
@@ -33,8 +34,25 @@ export class ResponseTable extends React.Component {
         )) : (<div></div>)
     }
 
+    getSortByPlayer() {
+        let { assignments } = this.props;
+        const myOrder = 1;
+        assignments.sort((a, b) => {
+            if (a.Player < b.Player) {
+                return -1 * myOrder;
+            }
+            if (a.Player > b.Player) {
+                return 1 * myOrder;
+            }
+            // names must be equal
+            return 0;
+        });
+        return assignments;
+    }
+
     async generatePoll() {
-        const { assignments } = this.props;
+        const assignments = this.getSortByPlayer();
+        console.log(`Assignments: `, assignments);
         let poll = `/ww poll "%" `;
         poll = poll.replace('%', this.getRandomPollMsg);
         assignments.forEach(assignment => {
